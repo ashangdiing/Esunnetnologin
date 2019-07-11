@@ -1,0 +1,18 @@
+﻿Object.prototype.add = function (o) {
+    for (var v in o) { this[v] = o[v]; }
+}
+var Phone = function () {
+    var connection, user = { AgentId: "", Ext: "", Password: "" }, self = this;
+    this.start = function () {
+        connection = $.connection('phone');
+        connection.received(function (data) { });
+        connection.start();
+    }
+    this.login = function (u) {
+        user.add(u);
+        var p = {};
+        p.fun = "Login";
+        p.p = [user.AgentId, "", user.Ext, user.Password];
+        connection.send(JSON.stringify(p));
+    }
+}

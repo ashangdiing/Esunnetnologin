@@ -1,0 +1,562 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Test.aspx.cs" Inherits="Esunnet.Record.Test" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="chs" xml:lang="chs">
+<head id="Head1" runat="server">
+    <title>软电话</title>
+    <link rel="stylesheet" href="SoftPhone.css" charset="UTF-8" />
+    <style type="text/css">
+        .InputTextYellow
+        {
+            border-right: 1px solid #94C7E7;
+            border-top: 1px solid #94C7E7;
+            border-left: 1px solid #94C7E7;
+            border-bottom: 1px solid #94C7E7;
+            font-size: 9pt;
+            vertical-align: middle;
+            height: 20px;
+            padding: 2px;
+            background-color: White;
+            background-color: #ffffbc;
+        }
+        #Button10
+        {
+            width: 40px;
+        }
+        #txtlog
+        {
+            height: 116px;
+            width: 987px;
+        }
+    </style>
+    <script type="text/javascript" language="javascript">
+        var pstart = null;
+        function 转接() { pstart = "t";}
+        function 接通() {
+            if (pstart == "t") {
+                //转接在B和C通话中想处理的事情 这个时候也可以点击取消
+            }
+        }
+        function 完成() { }
+        function 取消() {
+            pstart = null;
+        }
+        function 挂机() { pstart = null; }
+
+        /*****************************控件事件消息解析 ***************************/
+
+        var RequestNumber = '';
+        var PhoneStatus = "未登录"; //未登录、已登录、未就绪、就绪、休息、震铃、接听接通、拨打接通、开始拨号、拨号中、保持接听接通、保持拨打接通
+        var PhoneZJStatus = ""; //开始转接拨号、转接号码错误、转接拨号中、转接拨号接通
+        var PhoneHYStatus = ""; //开始会议拨号、会议拨号号码错误、会议拨号中、会议拨号接通、建立会议
+        var PhoneInOut = "";
+        /*****************************软电话函数 ***************************/
+        // 连接CTI服务器 
+        function ConnectToServer() {
+            phone.Connect('192.168.27.124', '8012');
+        }
+
+        // 坐席登录
+        function Agentlogin() {
+            phone.Login("9001", "", "6005", "9001"); //登录
+        }
+        // 关闭连接
+        function Disconnect() {
+            phone.Disconnect();
+        }
+        //坐席状态设置  准备接听
+        function SetAgentReady() {
+            phone.ChangeAgentStatus(1, "准备接听");
+        }
+
+
+        //坐席状态设置  有事离开
+        function SetAgentBusy() {
+            phone.ChangeAgentStatus(3, "有事离开");
+        }
+        /*****************************工具条按钮事件处理 ***************************/
+
+        function btnLoginClick() {
+            ConnectToServer();
+        }
+
+
+
+        //注销
+        function Logout() {
+            phone.Logout();
+
+        }
+
+        //坐席应答
+        //        function AnswerCall() {
+        //            phone.AnswerCall();
+
+        //        }
+        function AnswerCall() { alert(phone) }
+
+
+        //电话挂断
+        function btnGDClick() {
+            document.getElementById("btnJT").disabled = true;
+            document.getElementById("btnGD").disabled = true;
+            document.getElementById("btnSM").disabled = true;
+            document.getElementById("btnSX").disabled = true;
+            document.getElementById("btnBC").disabled = true;
+            document.getElementById("btnZJ").disabled = true;
+            document.getElementById("btnHF").disabled = true;
+            document.getElementById("btnHY").disabled = true;
+            document.getElementById("btnBD").disabled = false;
+            phone.HangUp();
+        }
+
+        //呼叫保持
+        function btnBCClick() {
+            if (document.getElementById("chkTest").checked == false) {
+                PhoneStatus = "呼叫保持";
+                document.getElementById("spanPhoneStatus").innerHTML = "呼叫保持";
+                document.getElementById("btnJT").disabled = true;
+                document.getElementById("btnGD").disabled = true;
+                document.getElementById("btnSM").disabled = true;
+                document.getElementById("btnSX").disabled = true;
+                document.getElementById("btnBC").disabled = true;
+                document.getElementById("btnZJ").disabled = true;
+                document.getElementById("btnHF").disabled = false;
+                document.getElementById("btnHY").disabled = true;
+                document.getElementById("btnBD").disabled = true;
+                phone.HoldCall();
+            }
+        }
+        //呼叫保持恢复
+        function btnHFClick() {
+            if (document.getElementById("chkTest").checked == false) {
+                PhoneStatus = "呼叫保持恢复";
+                document.getElementById("spanPhoneStatus").innerHTML = "呼叫保持恢复";
+                document.getElementById("btnJT").disabled = true;
+                document.getElementById("btnGD").disabled = false;
+                document.getElementById("btnSM").disabled = true;
+                document.getElementById("btnSX").disabled = true;
+                document.getElementById("btnBC").disabled = true;
+                document.getElementById("btnZJ").disabled = true;
+                document.getElementById("btnHF").disabled = true;
+                document.getElementById("btnHY").disabled = true;
+                document.getElementById("btnBD").disabled = true;
+                phone.RetrieveCall(); //恢复
+            }
+        }
+
+
+        //会议
+        function btnHYClick() {
+            var dest = document.getElementById("txtDest").value;
+
+            if (dest == "") {
+                alert("请输入第三方号码!");
+                return false;
+            }
+            else {
+                PhoneStatus = "三方通话";
+                document.getElementById("spanPhoneStatus").innerHTML = "三方通话";
+                document.getElementById("btnJT").disabled = true;
+                document.getElementById("btnGD").disabled = false;
+                document.getElementById("btnSM").disabled = true;
+                document.getElementById("btnSX").disabled = true;
+                document.getElementById("btnBC").disabled = true;
+                document.getElementById("btnZJ").disabled = true;
+                document.getElementById("btnHF").disabled = true;
+                document.getElementById("btnHY").disabled = false;
+                document.getElementById("btnBD").disabled = true;
+                phone.ConferenceCall(dest, "")
+            }
+        }
+
+        //转接
+        function btnZJClick() {
+            var dest = document.getElementById("txtDest").value;
+            if (dest == "") {
+                alert("请输入第三方号码!");
+            }
+            else {
+                if (document.getElementById("chkTest").checked == false) {
+                    PhoneStatus = "呼叫转接";
+                    document.getElementById("spanPhoneStatus").innerHTML = "呼叫转接";
+                    document.getElementById("btnJT").disabled = true;
+                    document.getElementById("btnGD").disabled = true;
+                    document.getElementById("btnSM").disabled = true;
+                    document.getElementById("btnSX").disabled = true;
+                    document.getElementById("btnBC").disabled = true;
+                    document.getElementById("btnZJ").disabled = true;
+                    document.getElementById("btnHF").disabled = true;
+                    document.getElementById("btnHY").disabled = true;
+                    document.getElementById("btnBD").disabled = false;
+                    phone.TransferCall(dest, "");
+                }
+
+            }
+        }
+
+
+        //示闲
+        function btnSXClick() {
+            PhoneStatus = "示闲";
+            document.getElementById("spanPhoneStatus").innerHTML = "示闲";
+            document.getElementById("btnJT").disabled = true;
+            document.getElementById("btnGD").disabled = true;
+            document.getElementById("btnSM").disabled = false;
+            document.getElementById("btnSX").disabled = true;
+            document.getElementById("btnBC").disabled = true;
+            document.getElementById("btnZJ").disabled = true;
+            document.getElementById("btnHF").disabled = true;
+            document.getElementById("btnHY").disabled = true;
+            document.getElementById("btnBD").disabled = false;
+            phone.ChangeAgentStatus(1, "准备接听");
+
+        }
+        //示忙
+        function btnSMClick() {
+            PhoneStatus = "示忙";
+            document.getElementById("spanPhoneStatus").innerHTML = "示忙";
+            document.getElementById("spanPhoneStatus").innerHTML = "示闲";
+            document.getElementById("btnJT").disabled = true;
+            document.getElementById("btnGD").disabled = true;
+            document.getElementById("btnSM").disabled = true;
+            document.getElementById("btnSX").disabled = false;
+            document.getElementById("btnBC").disabled = true;
+            document.getElementById("btnZJ").disabled = true;
+            document.getElementById("btnHF").disabled = true;
+            document.getElementById("btnHY").disabled = true;
+            document.getElementById("btnBD").disabled = true;
+            phone.ChangeAgentStatus(3, "有事离开");
+        }
+
+        //拨打按钮，兼有取消拨号和挂断的功能
+        function btnBDClick() {
+
+            var dest = document.getElementById("txtDest").value.replace(/(^\s*)|(\s*$)/g, "");
+            if (dest == "") {
+                alert("电话号码为空!");
+                return false;
+            }
+            else {
+                PhoneStatus = "开始拨号";
+                document.getElementById("btnJT").disabled = true;
+                document.getElementById("btnGD").disabled = false;
+                document.getElementById("btnSM").disabled = true;
+                document.getElementById("btnSX").disabled = true;
+                document.getElementById("btnBC").disabled = true;
+                document.getElementById("btnZJ").disabled = true;
+                document.getElementById("btnHF").disabled = true;
+                document.getElementById("btnHY").disabled = true;
+                document.getElementById("btnBD").disabled = true;
+                document.getElementById("spanPhoneStatus").innerHTML = PhoneStatus;
+                PhoneInOut = "200"; //该状态表明当前通话是拨出的电话
+                phone.Makecall(dest, ""); //拨打电话
+
+            }
+
+        }
+
+
+        /*****************************提供拨号方法 ***************************/
+
+
+        //供其他页面调用的方法
+        function MyDial(DestNumber) {
+            var dest = document.getElementById("txtDest").value = DestNumber.replace(/(^\s*)|(\s*$)/g, "");
+            if (dest == "") {
+                alert("号码不能为空");
+            }
+            else
+                btnBDClick();
+        }
+
+        function MySetCaseGuid(CaseGuid) {
+            document.getElementById("hidCaseGuid").value = CaseGuid;
+        }
+
+        function MyShiMang() {
+            if (document.getElementById("btnSM").disabled == false && document.getElementById("btnSM").className == "ButtonSMN") {
+                document.getElementById("btnSM").click();
+
+            }
+            else {
+                return "alert('目前状态下电话无法示忙');";
+            }
+        }
+
+        //========================
+        //打开最大化的窗口
+        //========================
+        function OpenMaxWindow(url) {
+            window.open(url, '_blank', 'channelmode=no,directories=no,fullscreen=no,location=no,menubar=no,resizable=yes,scrollbars=yes,status=yes,titlebar=yes,toolbar=no,left=' + (screen.availWidth < '+width+' ? 0 : (screen.availWidth - '+width+') / 2) + ',top=' + (screen.availHeight < '+height+' ? 0 : (screen.availHeight - '+height+') / 2) + ',width=' + screen.availWidth + ',height=' + screen.availHeight);
+        }
+
+        //日志打印
+        function showLog(msg) {
+            var oldText = document.getElementById("txtlog").value;
+            document.getElementById("txtlog").value = new Date() + "\t" + msg + "\n" + oldText;
+        }
+
+
+    </script>
+    <script type="text/javascript">
+        function ClearCaseGuid() {
+            document.getElementById("hidCaseGuid").value = "";
+        }
+
+    </script>
+    
+</head>
+<!---**************************按钮状态改变************************************----->
+<script>
+    //震铃
+    function RingStatus(originalCallingParty) {
+        PhoneInOut = "200";
+        RequestNumber = originalCallingParty;
+        PhoneStatus = "震铃";
+        document.getElementById("spanPhoneStatus").innerHTML = PhoneStatus;
+        document.getElementById("btnJT").disabled = false;
+        document.getElementById("btnGD").disabled = false;
+        document.getElementById("btnSM").disabled = true;
+        document.getElementById("btnSX").disabled = true;
+        document.getElementById("btnBC").disabled = true;
+        document.getElementById("btnZJ").disabled = true;
+        document.getElementById("btnHF").disabled = true;
+        document.getElementById("btnHY").disabled = true;
+        document.getElementById("btnBD").disabled = true;
+        var mytop = screen.availHeight - 230;
+        var myleft = screen.availWidth - 330;
+       
+    }
+    //登出成功后或登录失败按钮状态
+    function LogOutStatus() {
+
+        document.getElementById("btnLogin").disabled = false; //登出成功后，登陆按钮启用
+        document.getElementById("btnLogout").disabled = true; //登出成功后，登出按钮禁用
+        PhoneStatus = "未登录";
+        document.getElementById("spanPhoneStatus").innerHTML = "未登录";
+        document.getElementById("btnJT").disabled = true;
+        document.getElementById("btnGD").disabled = true;
+        document.getElementById("btnSM").disabled = true;
+        document.getElementById("btnSX").disabled = true;
+        document.getElementById("btnBC").disabled = true;
+        document.getElementById("btnZJ").disabled = true;
+        document.getElementById("btnHF").disabled = true;
+        document.getElementById("btnHY").disabled = true;
+        document.getElementById("btnBD").disabled = true;
+    }
+    //******登录成功后状态******-->
+    function LogInStatus() {
+        document.getElementById("btnLogin").disabled = true; //登录成功后，登陆按钮禁用
+        PhoneStatus = "登录就绪";
+        document.getElementById("spanPhoneStatus").innerHTML = "登录就绪";
+        document.getElementById("btnLogout").disabled = false; //登录登出按钮启用
+
+        document.getElementById("btnJT").disabled = true;
+        document.getElementById("btnGD").disabled = true;
+        document.getElementById("btnSM").disabled = true;
+        document.getElementById("btnSX").disabled = false;
+        document.getElementById("btnBC").disabled = true;
+        document.getElementById("btnZJ").disabled = true;
+        document.getElementById("btnHF").disabled = true;
+        document.getElementById("btnHY").disabled = true;
+        document.getElementById("btnBD").disabled = false;
+    }
+    //呼入接听成功后状态******-->
+    function CallInSuccessStatus() {
+        document.getElementById("btnJT").disabled = true;
+        document.getElementById("btnGD").disabled = false;
+        document.getElementById("btnSM").disabled = true;
+        document.getElementById("btnSX").disabled = true;
+        document.getElementById("btnBC").disabled = false;
+        document.getElementById("btnZJ").disabled = false;
+        document.getElementById("btnHF").disabled = true;
+        document.getElementById("btnHY").disabled = false;
+        document.getElementById("btnBD").disabled = true;
+        PhoneStatus = "接听接通";
+        document.getElementById("spanPhoneStatus").innerHTML = "接听接通";
+        //
+    }
+
+</script>
+<!--一些事件-->
+<!-- 连接准备好事件-->
+<script language="javascript" for="phone" event="ConnectionReady()">
+    showLog("ConnectionReady");
+    Agentlogin(); //如果CTI服务器连接成功，才进行坐席登录
+
+</script>
+<!-- 连接阻塞 事件-->
+<script language="javascript" for="phone" event="ConnectionBroken()">
+    LogOutStatus();//服务器连接不成功或服务器登出按钮状态	
+    showLog("ConnectionBroken");
+</script>
+<!-- 坐席登录 事件 -->
+<script language="javascript" for="phone" event="LoggedIn(isMonitor)">
+    showLog("LoggedIn  " + isMonitor);
+    if (isMonitor == true) {
+        //话务员成功登陆侯，设置登录按钮的状态
+        LogInStatus();
+
+    }
+
+</script>
+
+<!-- 坐席登出 事件 -->
+  <SCRIPT LANGUAGE=javascript FOR=phone EVENT="LoggedOut()">
+      LogOutStatus(); //登出成功后按钮状态
+      showLog("LoggedOut  ");
+
+ </SCRIPT>
+
+ <!-- 坐席状态改变 事件 -->
+		<SCRIPT LANGUAGE=javascript FOR=phone EVENT="AgentStatusCNGed(agentStatus)">
+		    showLog("AgentStatusCNGed  " + agentStatus);
+		</SCRIPT>
+
+
+<!--电话呼入 事件 -->
+<script language="javascript" for="phone" event="InboundCall(currentCallingParty, currentCalledParty,originalCallingParty, originalCalledParty,applicationData,callType,operationNumber)">
+    // RingStatus(originalCallingParty); //振铃
+    document.getElementById("btnJT").disabled = false; //振铃事件触发 才 置为 接听可用
+    showLog("CallInformation  " + currentCallingParty + " " + currentCalledParty + " " + originalCallingParty + "  " + originalCalledParty + " " + applicationData + "  " + callType);
+
+
+</script>
+<!-- 应答 事件 -->
+<script language="javascript" for="phone" event="Answered(opNumber)">
+    CallInSuccessStatus();
+    showLog("Answered  " + opNumber);
+
+
+
+</script>
+<!--挂机  事件 -->
+<script language="javascript" for="phone" event="CallIdle();">
+
+    document.getElementById("btnJT").disabled = true;
+    document.getElementById("btnGD").disabled = true;
+    document.getElementById("btnSM").disabled = true;
+    document.getElementById("btnSX").disabled = true;
+    document.getElementById("btnBC").disabled = true;
+    document.getElementById("btnZJ").disabled = true;
+    document.getElementById("btnHF").disabled = true;
+    document.getElementById("btnHY").disabled = true;
+    document.getElementById("btnBD").disabled = false;
+    PhoneStatus = "就绪";
+    document.getElementById("spanPhoneStatus").innerHTML = "就绪";
+    showLog(" CallIdle ");
+
+
+</script>
+<!-- 目标分机正在通话中  事件 -->
+<script language="javascript" for="phone" event="DestBusy()"> 	
+			   
+</script>
+<object id="phone" classid="clsid:94515486-3654-4463-AF08-B19D1FB8A79B" width="1"
+    height="1" align="center" hspace="0" vspace="0">
+</object>
+<div id="keepDiv" style="display: none">
+    <table style="height: 26px" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td>
+                <table cellpadding='0' cellspacing='1' width="100%">
+                    <tbody>
+                        <tr>
+                            <td>
+                                业务代表工号：
+                            </td>
+                            <td>
+                                <input type="text" name="txtLabourNo" id="txtLabourNo" value='<%=Session["AgentID"] %>'>
+                            </td>
+                            <td>
+                                密码:
+                            </td>
+                            <td>
+                                <input type="text" name="pwd" id="pwd" value='<%=Session["pwd"] %>'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                IP地址:
+                            </td>
+                            <td>
+                                <input type="text" name="txtMostlyAddress" id="txtMostlyAddress" value="59.208.19.109">
+                            </td>
+                            <td>
+                                端口号:
+                            </td>
+                            <td>
+                                <input type="text" name="txtPort" id="txtPortAddress" value="8012">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<body>
+    <table style="height: 26px" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td valign="top" style="width: 55px">
+                <div style="float: left;">
+                    <input type="button" id="btnLogin" value="登录" onclick="btnLoginClick()" class="ButtonDLN" />
+                </div>
+            </td>
+            <td valign="top" style="width: 55px">
+                <div style="float: left;">
+                    <input type="button" id="btnLogout" value="登出" onclick="Logout()" class="ButtonZXN" disabled="true"  />
+                </div>
+            </td>
+            <td class="Quicklink_1_bg" style="width: 200px; text-align: right" align="right">
+                <div id="spanPhoneStatus" style="float: right; font-size: 9pt; margin-top: 5px; margin-left: 2px;
+                    margin-right: 4px; margin-bottom: 10PX; font-weight: bold; text-align: right;
+                    width: 100%">
+                    电话状态
+                </div>
+            </td>
+            <td valign="top" style="width: 580px" class="Quicklink_1_bg">
+                <div style="float: left; height: 33px; width: 580px;">
+                    <input type="button" id="btnJT" value="接听" onclick="phone.AnswerCall()" class="ButtonJTN"
+                        disabled="true" />
+                    <input type="button" id="btnGD" value="挂断" onclick="btnGDClick()" class="ButtonGDN"
+                        disabled="true" />
+                    <input type="button" id="btnSX" value="示闲" onclick="btnSXClick()" class="ButtonSMN"
+                        disabled="true" />
+                    <input type="button" id="btnSM" value="示忙" onclick="btnSMClick()" class="ButtonSMD"
+                        disabled="true" />
+                    <input type="button" id="btnBC" value="保持" onclick="btnBCClick()" class="ButtonBCN"
+                        disabled="true" />
+                    <input type="button" id="btnHF" value="恢复" onclick="btnHFClick()" class="ButtonBCD"
+                        disabled="true" />
+                    <input type="button" id="btnHY" value="三方" onclick="btnHYClick()" class="ButtonHYN"
+                        disabled="true" />
+                    <input type="button" id="btnZJ" value="转接" onclick="btnZJClick()" class="ButtonZJN"
+                        disabled="true" />
+                    <input type="button" id="btnBD" value="拨打" onclick="btnBDClick()" class="ButtonBDN" /></div>
+            </td>
+            <td class="Quicklink_1_bg" colspan="4">
+                <div style="float: left; margin-left: 1px;">
+                    <input id='txtDest' style="width: 120px;" class="InputTextYellow" value="" />
+                    <input type="hidden" id='hidCaseGuid' value="" />
+                    <input type="hidden" runat="server" id="RecNameType2" value="来电接听" />
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div style="display: none">
+        <input type="checkbox" id="chkTest" />
+        <input type="checkbox" id="ChkHY" />
+        <input type="text" id="HoldID" name="HoldID" disabled="true" />
+        <input type="hidden" id="CallID" name="CallID" />
+        <input type="hidden" id="Caller" name="Caller" />
+        <input type="hidden" id="Called" name="Called" />
+        <input type="hidden" id="Path" name="Path" />
+    </div>
+    <div style="float: left; margin-left: 1px; width: 1051px; height: 139px;">
+        <textarea name="txtlog" cols="100" rows="15" id="txtlog"></textarea>
+        <input type="hidden" id='Hidden1' value="" />
+        <input type="hidden" runat="server" id="Hidden2" value="来电接听" />
+    </div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1F02205C-8A52-4DB1-A4F0-975329D525B8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Esunnet.Model</RootNamespace>
+    <AssemblyName>Esunnet.Model</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Clinet\Enum\Browser.cs" />
+    <Compile Include="Clinet\Enum\OS.cs" />
+    <Compile Include="Clinet\UserInfo.cs" />
+    <Compile Include="DataBase\Esunnet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Esunnet.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Frame\Dhtmlx\Grid\Grid.cs" />
+    <Compile Include="Frame\Dhtmlx\Grid\GridConverter.cs" />
+    <Compile Include="Frame\Dhtmlx\ISwitchData.cs" />
+    <Compile Include="Frame\Dhtmlx\Parameter.cs" />
+    <Compile Include="Frame\Dhtmlx\Tree\Row.cs" />
+    <Compile Include="Frame\Dhtmlx\Menu\Menu.cs" />
+    <Compile Include="Frame\Dhtmlx\Menu\Node.cs" />
+    <Compile Include="Frame\IGrid.cs" />
+    <Compile Include="Frame\IMenu.cs" />
+    <Compile Include="Frame\INode.cs" />
+    <Compile Include="Frame\IParameter.cs" />
+    <Compile Include="Proc\UP_AddOrUpdateExt.cs" />
+    <Compile Include="Proc\UP_AddUser.cs" />
+    <Compile Include="Proc\UP_FindUserList.cs" />
+    <Compile Include="Proc\UP_GetMenu.cs" />
+    <Compile Include="Proc\UP_Simple.cs" />
+    <Compile Include="Proc\UP_UpdateUserPassword.cs" />
+    <Compile Include="Proc\UP_UserLogin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Table\Ext.cs" />
+    <Compile Include="Table\NULL.cs" />
+    <Compile Include="Table\Record.cs" />
+    <Compile Include="Table\User.cs" />
+    <Compile Include="Tool\Permission\PermLeaf.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EntityDeploy Include="DataBase\Esunnet.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Esunnet.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataBase\Esunnet.edmx.diagram">
+      <DependentUpon>Esunnet.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sbw.DbClient\Sbw.csproj">
+      <Project>{1d2ec48f-f5ea-4690-8399-1bfb2571c5eb}</Project>
+      <Name>Sbw</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

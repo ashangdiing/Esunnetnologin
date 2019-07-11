@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web.Script.Serialization;
+
+namespace Esunnet.Phone.Phone.Util
+{
+    public class WebOperate
+    {
+        public string fun { get; set; }
+        public string[] p { get; set; }
+        public string this[int index]
+        {
+            get { return p[index]; }
+        }
+        public static WebOperate Get(string json)
+        {
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            return jss.Deserialize<WebOperate>(json);
+        }
+        public int Exec(IPhone Phone)
+        {
+            switch (fun)
+            {
+                case "Connect": return AgentApi.MornsunSvrConnect(p[0], int.Parse(p[1])); break;
+                case "Disconnect": return AgentApi.MornsunSvrShutdown(); break;
+                case "Login": return AgentApi.MornsunSvrLogin(p[0], p[1], p[2], p[3]); break;
+                case "Logout": return AgentApi.MornsunSvrLogout(p[0]); break;
+                case "AnswerCall": return AgentApi.MornsunSvrAnswerCall(p[0], int.Parse(p[1])); break;
+                case "Cancel": return AgentApi.MornsunSvrCancel(p[0], int.Parse(p[1]), int.Parse(p[2]), int.Parse(p[3])); break;
+                case "ChangeAgentPassword": return AgentApi.MornsunSvrChangePassword(p[0], p[1], p[2]); break;
+                case "SetAgentStatus": return AgentApi.MornsunSvrChangeAgentStatus(p[0], byte.Parse(p[1]), p[2]); break;
+                case "CompleteTransfer": return AgentApi.MornsunSvrCompleteTransfer(p[0], int.Parse(p[2])); break;
+                case "ConferenceCall": return AgentApi.MornsunSvrConferenceCall(p[0], int.Parse(p[1]), p[2], p[3]); break;
+                case "ConsultCall": return AgentApi.MornsunSvrConsultCall(p[0], int.Parse(p[1]), p[2], p[3], p[4]); break;
+                case "HangUp": return AgentApi.MornsunSvrHangupCall(p[0], int.Parse(p[1])); break;
+                case "HoldCall": return AgentApi.MornsunSvrHoldCall(p[0], int.Parse(p[1])); break;
+                case "ReteiveCall": return AgentApi.MornsunSvrRetrieveCall(p[0], int.Parse(p[1])); break;
+                case "MakeCall": return AgentApi.MornsunSvrMakeCall(p[0], int.Parse(p[1]), p[2], p[3]); break;
+                case "TransferCall": return AgentApi.MornsunSvrTransferCall(p[0], int.Parse(p[1]), p[2], p[3], p[4]); break;
+                case "SendTXTMessage": return AgentApi.MornsunSvrSendTXTMessage(p[0], p[1], p[2]); break;
+            }
+            return 1;
+        }
+    }
+}

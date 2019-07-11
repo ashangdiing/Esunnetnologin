@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{71979FCE-52ED-46F1-A5DF-EFB0C3DC804A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Esunnet.Record.Biz</RootNamespace>
+    <AssemblyName>Esunnet.Record.Biz</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AjaxBiz.cs" />
+    <Compile Include="ExtBiz.cs" />
+    <Compile Include="MenuBiz.cs" />
+    <Compile Include="RecordBiz.cs" />
+    <Compile Include="ReportBiz.cs" />
+    <Compile Include="Setting.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AToJson.cs" />
+    <Compile Include="UserBiz.cs" />
+    <Compile Include="WebService\Record.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Esunnet.Model\Esunnet.Model.csproj">
+      <Project>{1f02205c-8a52-4db1-a4f0-975329d525b8}</Project>
+      <Name>Esunnet.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Esunnet.Record.Bll\Esunnet.Record.Bll.csproj">
+      <Project>{ccd67247-3726-453c-98e0-25caa2e4a054}</Project>
+      <Name>Esunnet.Record.Bll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Esunnet.Tool\Esunnet.Tool.csproj">
+      <Project>{ac319555-ea41-415c-acb8-348d718302ff}</Project>
+      <Name>Esunnet.Tool</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sbw.DbClient\Sbw.csproj">
+      <Project>{1d2ec48f-f5ea-4690-8399-1bfb2571c5eb}</Project>
+      <Name>Sbw</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

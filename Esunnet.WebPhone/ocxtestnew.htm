@@ -1,0 +1,282 @@
+﻿<html>
+<head>
+    <title>测试</title>
+    
+    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+    <script type="text/javascript" src="js/jquery.signalR.js"></script>
+    <script type="text/javascript">
+        var connection, user = {};
+        $(function () {
+            connection = $.connection('phone');
+            connection.received(function (data) {
+                var oldText = document.getElementById("console").value;
+                document.getElementById("console").value = new Date() + "\t" + data + "\n" + oldText;
+            });
+            connection.start();
+            $("#broadcast").click(function () {
+                connection.send($('#msg').val());
+            });
+        });
+        //日志打印
+        function showLog(msg) {
+            var oldText = document.getElementById("console").value;
+            document.getElementById("console").value = new Date() + "\t" + msg + "\n" + oldText;
+        }
+
+        //清除日志
+        function logclear() {
+            var oldText = document.getElementById("console").value = '';
+        }
+
+
+
+        /**
+		 *呼叫控制 方法定义
+		 */
+
+
+
+        // 连接CTI服务器 
+        function ConnectToServer() {
+            //phone.Connect(IPADDRESS.value, PORT.value);
+            var p = {};
+            p.fun = "Connect";
+            p.p = [IPADDRESS.value, PORT.value];
+            connection.send(JSON.stringify(p));
+        }
+
+        // 关闭连接
+        function Disconnect() {
+            var p = {};
+            p.fun = "Disconnect";
+            connection.send(JSON.stringify(p));
+        }
+        // 坐席登录
+        function Agentlogin() {
+            var p = {};
+            p.fun = "Login";
+            user.agentId = Agentid.value;
+            p.p = [Agentid.value, "", ext.value, password.value];
+            connection.send(JSON.stringify(p));
+        }
+
+        // 坐席退出
+        function Logout() {
+            var p = {};
+            p.fun = "Logout";
+            p.p = [user.agentId];
+            connection.send(JSON.stringify(p));
+        }
+
+        //坐席应答
+        function AnswerCall() {
+            var p = {};
+            p.fun = "AnswerCall";
+            connection.send(JSON.stringify(p));
+        }
+
+        //取消
+        function Cancel() {
+            var p = {};
+            p.fun = "Cancel";
+            connection.send(JSON.stringify(p));
+        }
+        //修改坐席密码
+        function ChangeAgentPassword() {
+            var p = {};
+            p.fun = "ChangeAgentPassword";
+            p.p = [oldPassword.value, newPassword.value];
+            connection.send(JSON.stringify(p));
+        }
+
+
+        //坐席状态设置  准备接听
+        function SetAgentReady() {
+            var p = {};
+            p.fun = "ChangeAgentStatus";
+            p.p = [1, "准备接听"];
+            connection.send(JSON.stringify(p));
+        }
+
+
+        //坐席状态设置  有事离开
+        function SetAgentBusy() {
+            var p = {};
+            p.fun = "ChangeAgentStatus";
+            p.p = [3, "有事离开"];
+            connection.send(JSON.stringify(p));
+        }
+
+
+        //完成转接
+
+        function CompleteTransfer() {
+            var p = {};
+            p.fun = "CompleteTransfer";
+            connection.send(JSON.stringify(p));
+        }
+
+        //三方会议
+
+        function ConferenceCall() {
+            var p = {};
+            p.fun = "ConferenceCall";
+            p.p = [called.value, ""];
+            connection.send(JSON.stringify(p));
+        }
+
+        //咨询
+        function ConsultCall() {
+            var p = {};
+            p.fun = "ConsultCall";
+            p.p = [called.value, ""];
+            connection.send(JSON.stringify(p));
+        }
+
+        //挂断电话
+        function HangUp() {
+            var p = {};
+            p.fun = "HangUp";
+            connection.send(JSON.stringify(p));
+        }
+
+
+        //呼叫保持
+        function HoldCall() {
+            var p = {};
+            p.fun = "HoldCall";
+            connection.send(JSON.stringify(p));
+        }
+
+        //取回
+
+        function ReteiveCall() {
+            var p = {};
+            p.fun = "RetrieveCall";
+            connection.send(JSON.stringify(p));
+        }
+
+
+
+        //外呼
+        function MakeCall() {
+            var p = {};
+            p.fun = "Makecall";
+            p.p = [called.value, ""];
+            connection.send(JSON.stringify(p));
+        }
+
+
+        //转移
+        function TransferCall() {
+            var p = {};
+            p.fun = "TransferCall";
+            p.p = [called.value, ""];
+            connection.send(JSON.stringify(p));
+        }
+
+        //发送文本消息
+        function SendTXTMessage() {
+            var p = {};
+            p.fun = "SendTXTMessage";
+            p.p = [address.value, msg.value];
+            connection.send(JSON.stringify(p));
+        }
+        //呼叫拦截
+        function Intercept() {
+            var p = {};
+            p.fun = "Intercept";
+            p.p = [agentid.value];
+            connection.send(JSON.stringify(p));
+        }
+        //强插
+        function Intrude() {
+            var p = {};
+            p.fun = "Intrude";
+            p.p = [agentid.value];
+            connection.send(JSON.stringify(p));
+        }
+        //签出
+        function KickOut() {
+            var p = {};
+            p.fun = "KickOut";
+            p.p = [agentid.value];
+            connection.send(JSON.stringify(p));
+        }
+
+    </script>
+</head>
+<body>
+    <h1></h1>
+        <hr />
+    <p>
+        <br>
+        <br>
+        IP地址：<input name="IPADDRESS" type="text" id="IPADDRESS" value="127.0.0.1" />
+        端口：<input name="PORT" type="text" id="PORT" value="8012" />
+
+        <button onclick="ConnectToServer()">连接服务器</button>
+        <button onclick="Disconnect()">断开服务器</button>
+        <br>
+        <br>
+        坐席编号：<input name="Agentid" type="text" id="Agentid" value="8002" />
+        密码：<input name="password" type="text" id="password" value="8002" />
+        分机
+        <input name="ext" type="text" id="ext" value="6002" />
+        <button onclick="Agentlogin()">坐席登陆</button>
+        <button onclick="Logout()">坐席退出</button>
+
+        <br>
+        <br>
+        号码：
+        <input name="called" type="text" id="called" value="100" />
+        <button onclick="MakeCall()">呼叫</button>&nbsp;
+		<button onclick="TransferCall()">转移</button>&nbsp;
+		<button onclick="ConferenceCall()">三方	</button>
+        &nbsp;
+		<button onclick="ConsultCall()">咨询	</button>
+        &nbsp;
+		<button onclick="CompleteTransfer()">完成	</button>
+        &nbsp;
+		<button onclick="Cancel()">取消	</button>
+        &nbsp;
+		<br>
+        <br>
+        <button onclick="AnswerCall()">应答	</button>
+        &nbsp;		
+		<button onclick="HangUp()">挂断	</button>
+        &nbsp;		
+		<button onclick="HoldCall()">保持</button>&nbsp;
+		<button onclick="ReteiveCall()">取回	</button>
+        &nbsp;
+		<button onclick="SetAgentReady()">设置空闲</button>&nbsp;
+		<button onclick="SetAgentBusy()">设置忙碌</button>
+        <br>
+        <br>
+        旧密码：<input name="oldPassword" type="text" id="oldPassword" />&nbsp;
+		新密码：<input name="newPassword" type="text" id="newPassword" />&nbsp;
+		<button onclick="ChangeAgentPassword()">修改</button>&nbsp;
+		<br>
+        <br>
+        目标坐席：<input name="address" type="text" id="address" value='8888' />&nbsp;
+		文本内容：<input name="msg" type="text" id="WideString" value='test message!' />&nbsp;
+		<button onclick="SendTXTMessage()">发送</button>&nbsp;
+		<hr>
+        班长席功能
+		<br>
+        <br>
+        受控工号：<input name="agentid" type="text" id="agentid" value='8888' />&nbsp;		
+		<button onclick="Intercept()">拦截</button>&nbsp;
+		<button onclick="Intrude()">强插</button>&nbsp;
+		<button onclick="KickOut()">签出</button>&nbsp;
+	    <button onclick="Intrude()">监听	</button>
+        &nbsp;
+		<br>
+        <textarea name="console" cols="100" rows="15" id="console"></textarea>
+        <br>
+        <button onclick="logclear()">清除日志</button>
+    </p>
+</body>
+</html>
+

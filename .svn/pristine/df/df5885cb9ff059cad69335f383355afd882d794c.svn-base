@@ -1,0 +1,250 @@
+﻿using Esunnet.Phone.Phone;
+using Esunnet.Phone.Phone.Enum;
+using Esunnet.Phone.Phone.Util;
+using SignalR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Script.Serialization;
+
+namespace Esunnet.Phone.Web
+{
+    public class WebPhone : PersistentConnection, IPhone
+    {
+        public static Dictionary<string, IPhone> user = new Dictionary<string, IPhone>();
+        public string ConnectionId { get; set; }
+        public WebPhone()
+        {
+        }
+        private void S(object o) { }
+        protected override Task OnReceivedAsync(IRequest request, string connectionId, string data)
+        {
+            ConnectionId = connectionId;
+            return Connection.Send(connectionId, WebOperate.Get(data).Exec(this));
+            //return Connection.Broadcast();
+        }
+        protected override Task OnConnectedAsync(IRequest request, string connectionId)
+        {
+            if (!user.ContainsKey(connectionId))
+            {
+                AgentPhone.ConnectionBroken += AgentPhone_ConnectionBroken;
+                AgentPhone.ConnectionReady += AgentPhone_ConnectionReady;
+                AgentPhone.AgentStatus += AgentPhone_AgentStatus;
+                AgentPhone.AgentLogin += AgentPhone_AgentLogin;
+                AgentPhone.AgentLogout += AgentPhone_AgentLogout;
+                AgentPhone.AgentStatusCNGed += AgentPhone_AgentStatusCNGed;
+                AgentPhone.AgentStatistics += AgentPhone_AgentStatistics;
+                AgentPhone.UnknownEvent += AgentPhone_UnknownEvent;
+                AgentPhone.CallInformation += AgentPhone_CallInformation;
+                AgentPhone.Answered += AgentPhone_Answered;
+                AgentPhone.CallIdle += AgentPhone_CallIdle;
+                AgentPhone.DialTone += AgentPhone_DialTone;
+                AgentPhone.Conferenced += AgentPhone_Conferenced;
+                AgentPhone.TextMessage += AgentPhone_TextMessage;
+                AgentPhone.Transfered += AgentPhone_Transfered;
+                AgentPhone.DeviceStatus += AgentPhone_DeviceStatus;
+                AgentPhone.DestBusy += AgentPhone_DestBusy;
+                AgentPhone.DestInvalid += AgentPhone_DestInvalid;
+                AgentPhone.InboundCall += AgentPhone_InboundCall;
+                AgentPhone.Error += Error;
+                user.Add(connectionId, this);
+            }
+            return base.OnConnectedAsync(request, connectionId);
+        }
+        protected override Task OnDisconnectAsync(string connectionId)
+        {
+            if (user.ContainsKey(connectionId))
+            {
+                AgentPhone.ConnectionBroken -= user[connectionId].AgentPhone_ConnectionBroken;
+                AgentPhone.ConnectionReady -= user[connectionId].AgentPhone_ConnectionReady;
+                AgentPhone.AgentStatus -= user[connectionId].AgentPhone_AgentStatus;
+                AgentPhone.AgentLogin -= user[connectionId].AgentPhone_AgentLogin;
+                AgentPhone.AgentLogout -= user[connectionId].AgentPhone_AgentLogout;
+                AgentPhone.AgentStatusCNGed -= user[connectionId].AgentPhone_AgentStatusCNGed;
+                AgentPhone.AgentStatistics -= user[connectionId].AgentPhone_AgentStatistics;
+                AgentPhone.UnknownEvent -= user[connectionId].AgentPhone_UnknownEvent;
+                AgentPhone.CallInformation -= user[connectionId].AgentPhone_CallInformation;
+                AgentPhone.Answered -= user[connectionId].AgentPhone_Answered;
+                AgentPhone.CallIdle -= user[connectionId].AgentPhone_CallIdle;
+                AgentPhone.DialTone -= user[connectionId].AgentPhone_DialTone;
+                AgentPhone.Conferenced -= user[connectionId].AgentPhone_Conferenced;
+                AgentPhone.TextMessage -= user[connectionId].AgentPhone_TextMessage;
+                AgentPhone.Transfered -= user[connectionId].AgentPhone_Transfered;
+                AgentPhone.DeviceStatus -= user[connectionId].AgentPhone_DeviceStatus;
+                AgentPhone.DestBusy -= user[connectionId].AgentPhone_DestBusy;
+                AgentPhone.DestInvalid -= user[connectionId].AgentPhone_DestInvalid;
+                AgentPhone.InboundCall -= user[connectionId].AgentPhone_InboundCall;
+                AgentPhone.Error -= Error;
+                user.Remove(connectionId);
+            }
+            return base.OnDisconnectAsync(connectionId);
+        }
+        public override void Initialize(IDependencyResolver resolver)
+        {
+            base.Initialize(resolver);
+        }
+
+        public void AgentPhone_InboundCall(string arg1, string arg2, string arg3, string arg4, string arg5, int arg6, string arg7)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_InboundCall");
+            }
+        }
+
+        public void AgentPhone_DestInvalid()
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_DestInvalid");
+            }
+        }
+
+        public void AgentPhone_DestBusy()
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_DestBusy");
+            }
+        }
+
+        public void AgentPhone_DeviceStatus(string arg1, string arg2)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_DeviceStatus");
+            }
+        }
+
+        public void AgentPhone_Transfered()
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_Transfered");
+            }
+        }
+
+        public void AgentPhone_TextMessage(string arg1, string arg2, string arg3)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_TextMessage");
+            }
+        }
+
+        public void AgentPhone_Conferenced()
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_Conferenced");
+            }
+        }
+
+        public void AgentPhone_DialTone()
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_DialTone");
+            }
+        }
+
+        public void AgentPhone_CallIdle()
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_CallIdle");
+            }
+        }
+
+        public void AgentPhone_Answered(uint obj)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_Answered");
+            }
+        }
+
+        public void AgentPhone_CallInformation(string arg1, string arg2, string arg3, string arg4, string arg5, int arg6)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_CallInformation");
+            }
+        }
+
+        public void AgentPhone_UnknownEvent()
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_UnknownEvent");
+            }
+        }
+
+        public void AgentPhone_AgentStatistics(string arg1, string arg2)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_AgentStatistics");
+            }
+        }
+
+        public void AgentPhone_AgentStatusCNGed(uint obj)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_AgentStatusCNGed");
+            }
+        }
+
+        public void AgentPhone_AgentLogout(string arg1, long arg2, long arg3)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_AgentLogout");
+            }
+        }
+
+        public void AgentPhone_AgentLogin(string arg1, long arg2, long arg3)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_AgentLogin");
+            }
+        }
+
+        public void AgentPhone_AgentStatus(string arg1, string arg2, string arg3, string arg4, AgentStateEnum arg5, string arg6)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_AgentStatus");
+            }
+        }
+
+        public void AgentPhone_ConnectionReady()
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_ConnectionReady");
+            }
+        }
+
+        public void AgentPhone_ConnectionBroken()
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast("AgentPhone_ConnectionBroken");
+            }
+        }
+
+
+        public void Error(string arg1)
+        {
+            if (Connection != null)
+            {
+                Connection.Broadcast(arg1);
+            }
+        }
+    }
+}

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5ec5758523a4475a8217fcc2114302a5" Name="关系图1">
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.BulletinBoard" Width="1.5" PointX="7.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.FaxSend" Width="1.5" PointX="11.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.IVR_ATTRIBUTE" Width="1.5" PointX="11.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.IVR_HOLIDAY" Width="1.5" PointX="13" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.IVR_MUSIC" Width="1.5" PointX="10.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.IVR_TRANSFER" Width="1.5" PointX="9.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.IVR_WORK" Width="1.5" PointX="13" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.lookup_or_evaluation" Width="1.5" PointX="13.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.MIT_T_GROUP" Width="1.5" PointX="15.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.MIT_T_GROUP_ADMIN" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.MIT_T_GROUPMEMBER" Width="1.5" PointX="15.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.MIT_T_MEMBER" Width="1.5" PointX="7.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.SYS_Area" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.SYS_Dictionary" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.SYS_DictionaryType" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.SYS_Ext" Width="1.5" PointX="15.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.SYS_LoginLog" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.SYS_Menu" Width="1.5" PointX="5.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.SYS_Permissions" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.SYS_User" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_ADMIN" Width="1.5" PointX="9.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_ADMIN_RIGHT" Width="1.5" PointX="15.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENT" Width="1.5" PointX="11.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENT_GROUP" Width="1.5" PointX="13.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENT_IN_GROUP" Width="1.5" PointX="15.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENT_IN_ROUTE" Width="1.5" PointX="17.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENT_IN_SGROUP" Width="1.5" PointX="17.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENT_LOG" Width="1.5" PointX="17.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENT_LOG_GROUP" Width="1.5" PointX="17.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENT_RIGHT" Width="1.5" PointX="15.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENT_SERVICE" Width="1.5" PointX="17.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENT_SERVICE_GROUP" Width="1.5" PointX="0.75" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENTGROUPINFO" Width="1.5" PointX="19.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENTID" Width="1.5" PointX="19.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENTNUM" Width="1.5" PointX="19.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AGENTTELNUM" Width="1.5" PointX="7.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_APPOINT" Width="1.5" PointX="9.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_AREA" Width="1.5" PointX="19.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_BANKNAME" Width="1.5" PointX="11.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_CALLBACK" Width="1.5" PointX="19.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_CALLOUT" Width="1.5" PointX="17.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_CALLOUT_BAK" Width="1.5" PointX="19.75" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_CALLOUT_FAIL" Width="1.5" PointX="13.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_CALLOUT_SUCCESS" Width="1.5" PointX="21.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_CALLTYPE" Width="1.5" PointX="0.75" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_CALLTYPE_LOG" Width="1.5" PointX="2.75" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_CITY" Width="1.5" PointX="21.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_COMMODITY" Width="1.5" PointX="4.75" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_CUSTOMER" Width="1.5" PointX="21.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_CUSTOMER_INFO" Width="1.5" PointX="21.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_DEVICE" Width="1.5" PointX="21.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_DISTRICT_CODE" Width="1.5" PointX="6.75" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_FAQ" Width="1.5" PointX="23.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_FLOW" Width="1.5" PointX="23.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_FLOW_LOG" Width="1.5" PointX="23.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_GIFT" Width="1.5" PointX="8.75" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_GROUPINFO" Width="1.5" PointX="23.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_GROUPNAMR" Width="1.5" PointX="10.75" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_HOLD_LOG" Width="1.5" PointX="23.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_KIND" Width="1.5" PointX="23.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_LEAVE_DESCRIPTION" Width="1.5" PointX="23.75" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_LEAVE_LOG" Width="1.5" PointX="19.75" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_LOGIN_LOG" Width="1.5" PointX="23.75" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_MAIL" Width="1.5" PointX="0.75" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_MEDIA_LENGTH" Width="1.5" PointX="2.75" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_MEDIA_SERVER" Width="1.5" PointX="12.75" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_MEDIASERVER_SET" Width="1.5" PointX="14.75" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_MEETGROUP" Width="1.5" PointX="16.75" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_Mess" Width="1.5" PointX="21.75" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_MESSAGE" Width="1.5" PointX="23.75" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_MIT_T_GROUP_ADMIN" Width="1.5" PointX="25.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_MIT_T_GROUPMEMBER" Width="1.5" PointX="25.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_MIT_T_MEMBER" Width="1.5" PointX="4.75" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_MOBILECODE" Width="1.5" PointX="25.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_NMESSAGE" Width="1.5" PointX="25.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_NPHONE" Width="1.5" PointX="25.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_NSTATIS" Width="1.5" PointX="25.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_NVIDEO" Width="1.5" PointX="25.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_ORDER" Width="1.5" PointX="25.75" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_ORDEREDITLOG" Width="1.5" PointX="6.75" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_ORDERHISTORY" Width="1.5" PointX="8.75" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_OUTSTORE" Width="1.5" PointX="18.75" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_PBX" Width="1.5" PointX="27.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_PHONECODE" Width="1.5" PointX="27.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_POPUP_URL" Width="1.5" PointX="27.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_PRODUCT" Width="1.5" PointX="27.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_PROJECTID" Width="1.5" PointX="10.75" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_PROVINCE" Width="1.5" PointX="12.75" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_QUEUE_LOG" Width="1.5" PointX="27.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_CALLCATEGORY" Width="1.5" PointX="27.75" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_CLASSIFY" Width="1.5" PointX="20.75" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_CUTOMER" Width="1.5" PointX="27.75" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_FILE_INFO" Width="1.5" PointX="27.75" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_ITEM" Width="1.5" PointX="0.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_ITEM_MSG" Width="1.5" PointX="22.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_LOG" Width="1.5" PointX="27.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_PAS" Width="1.5" PointX="29.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_PRIVATE" Width="1.5" PointX="2.75" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_QUERY" Width="1.5" PointX="29.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_VALUE" Width="1.5" PointX="29.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REC_ZERO_LOG" Width="1.5" PointX="29.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_RECDEV" Width="1.5" PointX="29.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_RECZERO_LOG" Width="1.5" PointX="14.75" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_REFUSE_PHONE" Width="1.5" PointX="29.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_RIGHT" Width="1.5" PointX="29.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_SOURCE" Width="1.5" PointX="29.75" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_STOREHOUSE" Width="1.5" PointX="29.75" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_SYSTEM" Width="1.5" PointX="4.75" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_TALKLOG" Width="1.5" PointX="31.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_USEROLE" Width="1.5" PointX="31.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_USERS" Width="1.5" PointX="10.75" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.TS_WORK_STATION_LOG" Width="1.5" PointX="31.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.User_ClientInfo" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.User_HandleTask" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.User_Knowledge" Width="1.5" PointX="8" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.User_KnowledgeType" Width="1.5" PointX="5.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.User_RecordPermission" Width="1.5" PointX="5.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.User_Task" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Esunnet.Model.DataBase.User_TaskFlow" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__IVR_HOLID__MUSIC__4959E263" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__IVR_WORK__IS_WOR__40C49C62" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__IVR_WORK__IS_WOR__41B8C09B" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__SYS_Area__pid__009508B4" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Clien__area__0B129727" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__SYS_Diction__pid__7ADC2F5E" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Clie__clien__092A4EB5" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Clie__clien__0A1E72EE" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Hand__handl__21F5FC7F" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Task__taskL__13A7DD28" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Task__taskS__149C0161" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Task__taskT__12B3B8EF" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__SYS_Login__userI__69B1A35C" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__SYS_Menu__pid__4EFDAD20" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__SYS_User__permId__5E3FF0B0" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Clie__userI__08362A7C" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Reco__userI__63F8CA06" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Task__flowU__1A54DAB7" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Task__toUse__1B48FEF0" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Task__userI__10CB707D" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Task__whoTa__11BF94B6" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Task__clien__0FD74C44" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Hand__taskI__200DB40D" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Knowl__type__2B7F66B9" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Knowle__pid__26BAB19C" ManuallyRouted="false" />
+        <AssociationConnector Association="Esunnet.Model.DataBase.FK__User_Task__taskI__1960B67E" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

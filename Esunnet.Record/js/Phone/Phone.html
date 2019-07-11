@@ -1,0 +1,113 @@
+﻿<html>
+<head>
+    <title>OCXPhone</title>
+    <script LANGUAGE="JavaScript">
+        Phone = new Object();
+        Phone.event = {
+            isClose: false,
+            // 连接准备好 事件 ConnectionReady()
+            ConnectionReady: false,
+            // 连接阻塞 事件 ConnectionBroken()
+            ConnectionBroken: false,
+            // 坐席登入 事件 LoggedIn(isMonitor)
+            LoggedIn: false,
+            // 坐席登出 事件 LoggedOut()
+            LoggedOut: false,
+            // 坐席统计 事件 AgentStatistics(SName, SValue)
+            AgentStatistics: false,
+            // 坐席状态改变 事件 UnknownEvent()
+            UnknownEvent: false,
+            // 坐席状态改变 事件 AgentStatusCNGed(agentStatus)
+            AgentStatusCNGed: false,
+            // 电话呼入 事件 CallInformation(currentCallingParty,currentCalledParty,originalCallingParty,originalCalledParty, applicationData,callType)
+            CallInformation: false,
+            // 应答 事件 Answered(opNumber)
+            Answered: false,
+            // 挂机 事件 CallIdle()
+            CallIdle: false,
+            // 正在拨号 事件 DialTone()
+            DialTone: false,
+            // 完成三方 事件 Conferenced()
+            Conferenced: false,
+            // 坐席状态 事件 AgentStatus(agentName,deviceAddress,agentID, loginTime,status, cause)
+            AgentStatus: false,
+            // 消息到达 事件 TextMessage(agentID,address,amessage)
+            TextMessage: false,
+            // 呼叫转移 事件 Transfered()
+            Transfered: false,
+            // 设备状态  事件 DeviceStatus(deviceAddress,isIdle)
+            DeviceStatus: false,
+            // 目标分机正在通话中  事件 DestBusy()
+            DestBusy: false,
+            // 无效号码 事件 DestInvalid()
+            DestInvalid: false,
+            // 电话呼入 事件 InboundCall(currentCallingParty, currentCalledParty,originalCallingParty, originalCalledParty,applicationData,callType,operationNumber)
+            InboundCall: false
+        }
+        function initPhone() {
+            Phone.ocx = document.getElementById("myPhone");
+            parent.setPhone(Phone);
+        }
+    </script>
+</head>
+<body onload="initPhone()">
+    <script LANGUAGE="JavaScript" for="myPhone" event="ConnectionReady()">
+        if (Phone.event.ConnectionReady) Phone.event.ConnectionReady();
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="ConnectionBroken()">
+        if (Phone.event.ConnectionBroken) Phone.event.ConnectionBroken();
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="LoggedIn(isMonitor)">
+        if (Phone.event.LoggedIn) Phone.event.LoggedIn(isMonitor);
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="LoggedOut()">
+        if (Phone.event.LoggedOut) Phone.event.LoggedOut();
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="AgentStatistics(SName, SValue)">
+        if (Phone.event.AgentStatistics) Phone.event.AgentStatistics(SName, SValue);
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="Unknownevent();">
+        if (Phone.event.Unknownevent) Phone.event.Unknownevent();
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="AgentStatusCNGed(agentStatus)">
+        if (Phone.event.AgentStatusCNGed) Phone.event.AgentStatusCNGed(agentStatus);
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="CallInformation(currentCallingParty,currentCalledParty,originalCallingParty,originalCalledParty, applicationData,callType)">
+        if (Phone.event.CallInformation) Phone.event.CallInformation(currentCallingParty, currentCalledParty, originalCallingParty, originalCalledParty, applicationData, callType);
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="Answered(opNumber)">
+        if (Phone.event.Answered) Phone.event.Answered(opNumber);
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="CallIdle();">
+        if (Phone.event.CallIdle) Phone.event.CallIdle();
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="DialTone();">
+        if (Phone.event.DialTone) Phone.event.DialTone();
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="Conferenced();">
+        if (Phone.event.Conferenced) Phone.event.Conferenced();
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="AgentStatus(agentName,ext,agentId, loginTime,status, cause)">
+        if (Phone.event.AgentStatus) Phone.event.AgentStatus(agentName, ext, agentId, loginTime, status, cause);
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="TextMessage(agentID,address,amessage)">
+        if (Phone.event.TextMessage) Phone.event.TextMessage(agentID, address, amessage);
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="Transfered()">
+        if (Phone.event.Transfered) Phone.event.Transfered();
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="DeviceStatus(deviceAddress,isIdle);">
+        if (Phone.event.DeviceStatus) Phone.event.DeviceStatus(deviceAddress, isIdle);
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="DestBusy()">
+        if (Phone.event.DestBusy) Phone.event.DestBusy();
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="DestInvalid()">
+        if (Phone.event.DestInvalid) Phone.event.DestInvalid();
+    </script>
+    <script LANGUAGE="JavaScript" for="myPhone" event="InboundCall(currentCallingParty, currentCalledParty,originalCallingParty, originalCalledParty,applicationData,callType,operationNumber)">
+        if (Phone.event.InboundCall) Phone.event.InboundCall(currentCallingParty, currentCalledParty, originalCallingParty, originalCalledParty, applicationData, callType, operationNumber);
+    </script>
+    <object id="myPhone" classid="clsid:94515486-3654-4463-AF08-B19D1FB8A79B" codebase="Phone.CAB" width="1" height="1" align="center" hspace="0" vspace="0"></object>
+</body>
+</html>

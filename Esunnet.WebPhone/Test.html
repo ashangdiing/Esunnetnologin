@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+    <script type="text/javascript" src="js/jquery.signalR.js"></script>
+    <script type="text/javascript" src="js/Phone.js"></script>
+    <script type="text/javascript">
+        var Phone;
+        var event = {
+            logined: function (p1, p2, p3) { addLog("登陆" + p1); },
+            error: function (p) { addLog(p); },
+            agentStatus: function (agentName, agentID, deviceAddress, loginTime, status, cause) { addLog("AgentStatus  " + agentName + "  " + agentID + " " + deviceAddress + "  " + loginTime + "  " + status + "  " + cause); }
+        };
+        $(function () {
+            Phone = new OcxPhone(event);
+            Phone.start(function () {
+                //alert(d);
+              /*  Phone.login({ AgentId: 9001, Ext: 6005, Password: 9001 }, function (d) {
+                    alert("---" + d);
+                });*/
+            });
+        });
+        function addLog(msg) {
+            $("#console").prepend(new Date().toLocaleString() + "\t" + msg + "\n<br />");
+        }
+        function Agentlogin() {
+            Phone.login({ AgentId: $("#Agentid").val(), Ext: $("#ext").val(), Password: $("#password").val() }, function (d) {
+                addLog("登陆" + (d ? "执行成功" : "执行失败"));
+            });
+        }
+        function SetAgentReady() {
+            Phone.setAgentStatus(1, "准备接听", function (d) {
+                addLog("设置状态" + (d ? "执行成功" : "执行失败"));
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1></h1>
+    <hr />
+    <p>
+        坐席编号：<input name="Agentid" type="text" id="Agentid" value="9001" />
+        密码：<input name="password" type="text" id="password" value="9001" />
+        分机
+        <input name="ext" type="text" id="ext" value="6005" />
+        <button onclick="Agentlogin()">坐席登陆</button>
+        <button onclick="Logout()">坐席退出</button>
+
+        <br />
+        <br />
+        号码：
+        <input name="called" type="text" id="called" value="100" />
+        <button onclick="MakeCall()">呼叫</button>&nbsp;
+		<button onclick="TransferCall()">转移</button>&nbsp;
+		<button onclick="ConferenceCall()">三方</button>
+        &nbsp;
+		<button onclick="ConsultCall()">咨询</button>
+        &nbsp;
+		<button onclick="CompleteTransfer()">完成</button>
+        &nbsp;
+		<button onclick="Cancel()">取消</button>
+        &nbsp;
+		<br />
+        <br />
+        <button onclick="AnswerCall()">应答	</button>
+        &nbsp;		
+		<button onclick="HangUp()">挂断</button>
+        &nbsp;		
+		<button onclick="HoldCall()">保持</button>&nbsp;
+		<button onclick="ReteiveCall()">取回</button>
+        &nbsp;
+		<button onclick="SetAgentReady()">设置空闲</button>&nbsp;
+		<button onclick="SetAgentBusy()">设置忙碌</button>
+        <br />
+        <br />
+        旧密码：<input name="oldPassword" type="text" id="oldPassword" />&nbsp;
+		新密码：<input name="newPassword" type="text" id="newPassword" />&nbsp;
+		<button onclick="ChangeAgentPassword()">修改</button>&nbsp;
+		<br />
+        <br />
+        目标坐席：<input name="address" type="text" id="address" value='8888' />&nbsp;
+		文本内容：<input name="msg" type="text" id="WideString" value='test message!' />&nbsp;
+		<button onclick="SendTXTMessage()">发送</button>&nbsp;
+    </p>
+    <hr />
+    <p>
+        班长席功能
+		<br />
+        <br />
+        受控工号：<input name="agentid" type="text" id="Text1" value='8888' />&nbsp;		
+		<button onclick="Intercept()">拦截</button>&nbsp;
+		<button onclick="Intrude()">强插</button>&nbsp;
+		<button onclick="KickOut()">签出</button>&nbsp;
+	    <button onclick="Intrude()">监听</button>
+        &nbsp;
+		<br />
+        <textarea name="console" cols="100" rows="15" id="console"></textarea>
+        <br />
+        <button onclick="logclear()">清除日志</button>
+    </p>
+</body>
+</html>

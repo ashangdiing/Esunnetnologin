@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A7DDE251-BDD7-496F-B064-0CC236E0A9F9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Esunnet.Phone</RootNamespace>
+    <AssemblyName>Esunnet.Phone</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BasicDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>App_Data\SignalR\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SignalR, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>App_Data\SignalR\SignalR.dll</HintPath>
+    </Reference>
+    <Reference Include="SignalR.Client, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>App_Data\SignalR\SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="SignalR.Hosting.AspNet, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>App_Data\SignalR\SignalR.Hosting.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="SignalR.Hosting.Common, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>App_Data\SignalR\SignalR.Hosting.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="OCX\OcxPhone.cs" />
+    <Compile Include="OCX\Util\WebOperate.cs" />
+    <Compile Include="OCX\Web\WebPhone.cs" />
+    <Compile Include="Phone\IAgent.cs" />
+    <Compile Include="Phone\AgentApi.cs" />
+    <Compile Include="Phone\Enum\AgentStateEnum.cs" />
+    <Compile Include="Phone\Enum\CallTypeEnum.cs" />
+    <Compile Include="Phone\Enum\ErrorCodeEnum.cs" />
+    <Compile Include="Phone\Enum\EventIDEnum.cs" />
+    <Compile Include="Phone\IPhone.cs" />
+    <Compile Include="Phone\AgentPhone.cs" />
+    <Compile Include="Phone\Struct\AgentStatusPdu.cs" />
+    <Compile Include="Phone\Struct\AnswerCallPdu.cs" />
+    <Compile Include="Phone\Struct\ApplicationLogPdu.cs" />
+    <Compile Include="Phone\Struct\CallDetailPdu.cs" />
+    <Compile Include="Phone\Struct\CancelPdu.cs" />
+    <Compile Include="Phone\Struct\ChangePasswordPdu.cs" />
+    <Compile Include="Phone\Struct\CompleteTransferPdu.cs" />
+    <Compile Include="Phone\Struct\ConferenceCallPdu.cs" />
+    <Compile Include="Phone\Struct\ConnectionStatePdu.cs" />
+    <Compile Include="Phone\Struct\ConsultCallPdu.cs" />
+    <Compile Include="Phone\Struct\ControllerMonitorPdu.cs" />
+    <Compile Include="Phone\Struct\DeviceStatusPdu.cs" />
+    <Compile Include="Phone\Struct\GetApplicationDataPdu.cs" />
+    <Compile Include="Phone\Struct\GetCurrentStatusPdu.cs" />
+    <Compile Include="Phone\Struct\HoldCallPdu.cs" />
+    <Compile Include="Phone\Struct\InstantMessagePdu.cs" />
+    <Compile Include="Phone\Struct\LeaveCause.cs" />
+    <Compile Include="Phone\Struct\LeaveCausesPdu.cs" />
+    <Compile Include="Phone\Struct\LeaveConferencePdu.cs" />
+    <Compile Include="Phone\Struct\LockFreeAgentPdu.cs" />
+    <Compile Include="Phone\Struct\MakeCallPdu.cs" />
+    <Compile Include="Phone\Struct\MonitorPdu.cs" />
+    <Compile Include="Phone\Struct\NotificationPdu.cs" />
+    <Compile Include="Phone\Struct\OnTimerPdu.cs" />
+    <Compile Include="Phone\Struct\PreviousServiceAgentPdu.cs" />
+    <Compile Include="Phone\Struct\RetrieveCallPdu.cs" />
+    <Compile Include="Phone\Struct\RouteEndPdu.cs" />
+    <Compile Include="Phone\Struct\RouteRequestPdu.cs" />
+    <Compile Include="Phone\Struct\ServiceAgentResultPdu.cs" />
+    <Compile Include="Phone\Struct\SetAgentStatusPdu.cs" />
+    <Compile Include="Phone\Struct\SetApplicationDataPdu.cs" />
+    <Compile Include="Phone\Struct\SocketBrokenPdu.cs" />
+    <Compile Include="Phone\Struct\StructLayout.cs" />
+    <Compile Include="Phone\Struct\TraceSettingPdu.cs" />
+    <Compile Include="Phone\Struct\TransferCallPdu.cs" />
+    <Compile Include="Phone\Struct\TransferToAgentPdu.cs" />
+    <Compile Include="Phone\Struct\UnMonitorPdu.cs" />
+    <Compile Include="Phone\Util\AgentList.cs" />
+    <Compile Include="Phone\Util\OpStruct.cs" />
+    <Compile Include="Phone\Util\WebOperate.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Phone\Web\Agent.cs" />
+    <Compile Include="Phone\Web\WebPhone.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="TechsungCTIX">
+      <Guid>{13C926A2-A3F1-473B-9811-CC7F57AA8C36}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\SignalR\Newtonsoft.Json.dll" />
+    <Content Include="App_Data\SignalR\SignalR.Client.dll" />
+    <Content Include="App_Data\SignalR\SignalR.dll" />
+    <Content Include="App_Data\SignalR\SignalR.Hosting.AspNet.dll" />
+    <Content Include="App_Data\SignalR\SignalR.Hosting.Common.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

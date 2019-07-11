@@ -1,0 +1,66 @@
+﻿using Esunnet.Phone.Phone.Enum;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+
+namespace Esunnet.Phone.Phone
+{
+    public class AgentApi
+    {
+
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrGetMessage", CallingConvention = CallingConvention.StdCall)]
+        public unsafe static extern int MornsunSvrGetMessage(void* msg, int nTimeOut);
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrGetMessage", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrGetMessage(ref IntPtr msg, int nTimeOut);
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrConnect", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrConnect(string lpszAddress, int nPort);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrConnect';        
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrConnect2", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrConnect2(string address1, int port1, string address2, int port2);//Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrConnect2';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrShutdown", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrShutdown();//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrShutdown';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrLogin", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrLogin(string agentID, string agentGroupID, string deviceAddress, string password);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrLogin';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrChangeAgentStatus", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrChangeAgentStatus(string agentID, byte state, string description);// Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrChangeAgentStatus';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrLogout", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrLogout(string agentID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrLogout';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrAnswerCall", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrAnswerCall(string agentID, int callID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrAnswerCall';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrTransferCall", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrTransferCall(string agentID, int callID, string destination, string applicationData, string isBlind);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrTransferCall';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrConsultCall", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrConsultCall(string agentID, int callID, string destination, string applicationData, string isBlind);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrConsultCall';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrCompleteTransfer", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrCompleteTransfer(string agentID, int callID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrCompleteTransfer';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrMakeCall", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrMakeCall(string agentID, int callID, string destination, string applicationData);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrMakeCall';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrHoldCall", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrHoldCall(string agentID, int callID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrHoldCall';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrRetrieveCall", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrRetrieveCall(string agentID, int callID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrRetrieveCall';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrConferenceCall", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrConferenceCall(string agentID, int callID, string destination, string applicationData);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrConferenceCall';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrHangupCall", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrHangupCall(string agentID, int callID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrHangupCall';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrLeaveConference", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrLeaveConference(string agentID, int callID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrLeaveConference';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrCancel", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrCancel(string agentID, int callID, int requestType, int requestID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrCancel';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrSetApplicationData", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrSetApplicationData(string agentID, int callID, string applicationData);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrSetApplicationData';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrGetApplicationData", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrGetApplicationData(string agentID, int callID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrGetApplicationData';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrSendTXTMessage", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrSendTXTMessage(string senderAgentID, string address, string amessage);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrSendTXTMessage';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrGetLeaveCauses", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrGetLeaveCauses();//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrGetLeaveCauses';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrChangePassword", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrChangePassword(string agentID, string oldPassword, string newPassword);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrChangePassword';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrHangupCall", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrMonitor(string agentID, string deviceID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrMonitor';
+        [DllImport("PublicApi.dll", EntryPoint = "MornsunSvrUnMonitor", CallingConvention = CallingConvention.StdCall)]
+        public static extern int MornsunSvrUnMonitor(string agentID, string deviceID);//: Integer; stdcall; external 'PublicApi.dll' name 'MornsunSvrUnMonitor';
+    }
+}

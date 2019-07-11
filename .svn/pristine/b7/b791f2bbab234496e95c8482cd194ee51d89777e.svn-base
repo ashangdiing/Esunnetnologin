@@ -1,0 +1,275 @@
+﻿using Esunnet.Phone.Phone.Enum;
+using Esunnet.Phone.Phone.Struct;
+using Esunnet.Phone.Phone.Util;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+
+namespace Esunnet.Phone.Phone
+{
+    public class AgentPhone
+    { 
+        private static object o = new object();
+        public static event Action ConnectionReady;
+        public static event Action ConnectionBroken;
+        public static event Action<string, string, string, string, AgentStateEnum, string> AgentStatus;
+        public static event Action<string, long, long> AgentLogin;
+        public static event Action<string, long, long> AgentLogout;
+        public static event Action<uint> AgentStatusCNGed;
+        public static event Action<string, string> AgentStatistics;
+        public static event Action UnknownEvent;
+        public static event Action<string, string, string, string, string, int> CallInformation;
+        public static event Action<UInt32> Answered;
+        public static event Action CallIdle;
+        public static event Action DialTone;
+        public static event Action Conferenced;
+        public static event Action<string, string, string> TextMessage;
+        public static event Action Transfered;
+        public static event Action<string, string> DeviceStatus;
+        public static event Action DestBusy;
+        public static event Action DestInvalid;
+        public static event Action<string, string, string, string, string, int, string> InboundCall;
+        public static event Action<string> Error;
+        static AgentPhone()
+        {
+            Thread th = new Thread(Init);
+            th.Start(o);
+        }
+        private static void Init(object o)
+        {
+            unsafe
+            {
+                int i = 1;
+                while (true)
+                {
+                    byte[] ABuffer = new byte[10000];
+                    //bool hasValue = false;
+                    fixed (byte* p = &ABuffer[0])
+                    {
+                        i = AgentApi.MornsunSvrGetMessage(p, 100);
+                    }
+                    if (i == 0)
+                    {
+                        EventIDEnum e = (EventIDEnum)OpStruct.BytesToInt(ABuffer);
+                        Console.WriteLine("MornsunSvrGetMessage return {0} EventIDEnum={1},{1:X}", i, e);
+                      /*  for (int j = 4; j < ABuffer.Length; j++)
+                        {
+                            if (ABuffer[j] > 1)
+                            {
+                                hasValue = true;
+                            }
+                        }*/
+                        switch (e)
+                        {
+                            case EventIDEnum.ID_SETAGENTSTATUS://1001
+                                OpStruct.BytesToStuct<SetAgentStatusPdu>(ABuffer);
+                                break;
+                            case EventIDEnum.ID_ANSWERCALL://1002
+                                break;
+                            case EventIDEnum.ID_MAKECALL:
+                                break;
+                            case EventIDEnum.ID_HOLDCALL:
+                                break;
+                            case EventIDEnum.ID_RETRIEVECALL:
+                                break;
+                            case EventIDEnum.ID_TRANSFERCALL:
+                                break;
+                            case EventIDEnum.ID_CONFERENCECALL:
+                                break;
+                            case EventIDEnum.ID_HANGUPCALL:
+                                break;
+                            case EventIDEnum.ID_LEAVECONFERENCE:
+                                break;
+                            case EventIDEnum.ID_CANCEL:
+                                break;
+                            case EventIDEnum.ID_SETAPPDATA:
+                                break;
+                            case EventIDEnum.ID_GETAPPDATA:
+                                break;
+                            case EventIDEnum.ID_MONITOR:
+                                break;
+                            case EventIDEnum.ID_CONSULTCALL:
+                                break;
+                            case EventIDEnum.ID_COMPLETETRANSFER:
+                                break;
+                            case EventIDEnum.ID_AGENTLOGGEDON://2001
+                                {
+                                    NotificationPdu np = OpStruct.BytesToStuct<NotificationPdu>(ABuffer);
+                                    if (AgentPhone.AgentLogin != null)
+                                    {
+                                        AgentPhone.AgentLogin("", 1, 1);
+                                    }
+                                }
+                                break;
+                            case EventIDEnum.ID_AGENTLOGGEDOFF://2002
+                                {
+                                    NotificationPdu np = OpStruct.BytesToStuct<NotificationPdu>(ABuffer);
+                                    if (AgentPhone.AgentLogout != null)
+                                    {
+                                        AgentPhone.AgentLogout("", 1, 1);
+                                    }
+                                }
+                                break;
+                            case EventIDEnum.ID_AGENTSTATUSCHANGED:
+                                break;
+                            case EventIDEnum.ID_BACKINSERVICE:
+                                break;
+                            case EventIDEnum.ID_OUTOFSERVICE:
+                                break;
+                            case EventIDEnum.ID_CALLINFORMATION:
+                                break;
+                            case EventIDEnum.ID_DESTBUSY:
+                                break;
+                            case EventIDEnum.ID_DESTCHANGED:
+                                break;
+                            case EventIDEnum.ID_DESTINVALID:
+                                break;
+                            case EventIDEnum.ID_DESTNOTOBTAINABLE:
+                                break;
+                            case EventIDEnum.ID_DESTSEIZED:
+                                break;
+                            case EventIDEnum.ID_DIVERTED:
+                                break;
+                            case EventIDEnum.ID_ERROR://200d
+                                {
+                                    NotificationPdu np = OpStruct.BytesToStuct<NotificationPdu>(ABuffer);
+                                    if (AgentPhone.Error != null)
+                                    {
+                                        AgentPhone.Error(np.applicationData);
+                                    }
+                                }
+                                break;
+                            case EventIDEnum.ID_INBOUNDCALL:
+                                break;
+                            case EventIDEnum.ID_OFFHOOK:
+                                break;
+                            case EventIDEnum.ID_OPANSWERED:
+                                break;
+                            case EventIDEnum.ID_OPCONFERENCED:
+                                break;
+                            case EventIDEnum.ID_OPDISCONNECTED:
+                                break;
+                            case EventIDEnum.ID_OPHELD:
+                                break;
+                            case EventIDEnum.ID_OPRETRIEVED:
+                                break;
+                            case EventIDEnum.ID_TPANSWERED:
+                                break;
+                            case EventIDEnum.ID_TPCONFERENCED:
+                                break;
+                            case EventIDEnum.ID_TPDISCONNECTED:
+                                break;
+                            case EventIDEnum.ID_TPSUSPENDED:
+                                break;
+                            case EventIDEnum.ID_TPRETRIEVED:
+                                break;
+                            case EventIDEnum.ID_CALLIDLE:
+                                break;
+                            case EventIDEnum.ID_TRANSFERED:
+                                break;
+                            case EventIDEnum.ID_LINEREPLY:
+                                break;
+                            case EventIDEnum.ID_DIALTONE:
+                                break;
+                            case EventIDEnum.ID_UNAVAILABLE:
+                                break;
+                            case EventIDEnum.ID_HOLDCONF:
+                                break;
+                            case EventIDEnum.ID_UNMONITOR:
+                                break;
+                            case EventIDEnum.ID_APPLOG:
+                                break;
+                            case EventIDEnum.ID_NEWREQUEST:
+                                break;
+                            case EventIDEnum.ID_DISPATCHREQUEST:
+                                break;
+                            case EventIDEnum.ID_CANCELREQUEST:
+                                break;
+                            case EventIDEnum.ID_DEVICESTATUS:
+                                break;
+                            case EventIDEnum.ID_CONNECTIONSTATE://
+                                {
+                                    ConnectionStatePdu csp = OpStruct.BytesToStuct<ConnectionStatePdu>(ABuffer);
+                                    if (csp.state == 0)
+                                    {
+                                        if (AgentPhone.ConnectionReady != null)
+                                        {
+                                            AgentPhone.ConnectionReady();
+                                        }
+                                    }
+                                    else
+                                    {
+                                       if (AgentPhone.ConnectionBroken != null)
+                                        {
+                                            AgentPhone.ConnectionBroken();
+                                        }
+                                    }
+                                }
+                                break;
+                            case EventIDEnum.ID_INSTANTMESSAGE:
+                                break;
+                            case EventIDEnum.ID_AGENTSTATUS:
+                                {
+                                    AgentStatusPdu asp = OpStruct.BytesToStuct<AgentStatusPdu>(ABuffer);
+                                    if (AgentPhone.AgentStatus != null)
+                                    {
+                                        AgentPhone.AgentStatus(asp.agentName, asp.agentID, asp.deviceAddress, asp.loginTime, asp.state, asp.cause);
+                                    }
+                                }
+                                break;
+                            case EventIDEnum.ID_CHANGEPASSWORD:
+                                break;
+                            case EventIDEnum.ID_ONTIMER:
+                                break;
+                            case EventIDEnum.ID_SOCKETBROKEN:
+                                break;
+                            case EventIDEnum.ID_LEAVECAUSE:
+                                break;
+                            case EventIDEnum.ID_PING:
+                                // OpStruct.BytesToStuct<Agent.Struct.>(ABuffer);
+                                break;
+                            case EventIDEnum.ID_TRACESETTING:
+                                break;
+                            case EventIDEnum.ID_CALLDETAIL:
+                                break;
+                            case EventIDEnum.ID_TIMEOUTED:
+                                break;
+                            case EventIDEnum.ID_RINGBACK:
+                                break;
+                            case EventIDEnum.ID_STOPMUSIC:
+                                break;
+                            case EventIDEnum.ID_OPTRANSFERED:
+                                break;
+                            case EventIDEnum.ID_SETTIMER:
+                                break;
+                            case EventIDEnum.ID_HOLDCONFERENCE:
+                                break;
+                            case EventIDEnum.ID_HOLDTRANSFER:
+                                break;
+                            case EventIDEnum.ID_LOCKFREEAGENT:
+                                break;
+                            case EventIDEnum.ID_TRANSFERTOAGENT:
+                                break;
+                            case EventIDEnum.ID_ROUTEREQUEST:
+                                break;
+                            case EventIDEnum.ID_TSAPIROUTE_END:
+                                break;
+                            case EventIDEnum.ID_PREVIOUSSERVICEAGENT:
+                                break;
+                            case EventIDEnum.ID_WAITFORSERVICEAGENT:
+                                break;
+                            case EventIDEnum.ID_SERVICEAGENTRESULT:
+                                break;
+                            case EventIDEnum.ID_GETCURRENTSTATUS:
+                                break;
+                            case EventIDEnum.ID_CONTROLLERMONITOR: break;
+                        }
+                    }
+                    Thread.Sleep(200);
+                }
+            }
+        }
+    }
+}
